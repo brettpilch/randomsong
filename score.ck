@@ -2,10 +2,14 @@
 // on the fly drumming with global BPM conducting
 //add tracks:
 
-//add classes to control tempo and levels:
+//add classes to control tempo, levels, and key:
 BPM tempo;
 tempo.tempo(100);
 Level level;
+Key key;
+key.setKey("C");
+Bass bass;
+
 Machine.add(me.dir()+"/setlevels.ck") => int levelsID;
 
 //spork ~ printLevel();
