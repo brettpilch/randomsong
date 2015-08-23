@@ -3,6 +3,7 @@
 // Chords
 BPM tempo;
 Level level;
+Key key;
 
 // sound chain
 Pan2 master => dac;
@@ -10,6 +11,7 @@ VoicForm voices[4];
 Pan2 voicesp[4];
 ADSR voiceEnv[4];
 NRev reverb[4];
+-1 => int octave;
 
 for( 0 => int i; i < voices.cap(); i++ )
 {
@@ -35,11 +37,19 @@ for( 0 => int i; i < voices.cap(); i++ )
 
 fun void setVoiceFreqs(int chord[], int root)
 {// set the frequency of each voice according to the given chord
-    for( 0 => int i; i < chord.cap(); i++ )
-    {
+    for (0 => int i; i < chord.cap(); i++) {
         1 => voiceEnv[i].keyOff;
         // root note + intervals from chord determine freq of each voice.
-        Std.mtof(notes[root + chord[i]]) => voices[i].freq;
+        0 => int thisOctave;
+        if (root + chord[i] > key.scale.cap() - 1) {
+            1 +=> thisOctave;
+            if (root + chord[i] > key.scale.cap() * 2 - 1) {
+                1 +=> thisOctave;
+            }
+        }
+        key.root + key.scale[(root + chord[i]) % key.scale.cap()] => int thisNote;
+        12 * octave + 12 * thisOctave +=> thisNote;
+        Std.mtof(thisNote) => voices[i].freq;
         1 => voiceEnv[i].keyOn;
     }
 }
@@ -62,7 +72,7 @@ while( true )
     chords[which] @=> int chord[];
     
     // select a random root note
-    Math.random2(0,notes.cap() - 9) => int root;
+    Math.random2(0, key.scale.cap() - 1) => int root;
     
     // set voice freqs according to root and chord type.
     setVoiceFreqs(chord, root);

@@ -90,7 +90,7 @@ class Sound
 ["snare1"] @=> string snareFiles[];
 
 // fader levels
-1.2 => float kickC;
+1.0 => float kickC;
 1.1 => float hatC;
 0.9 => float snareC;
 

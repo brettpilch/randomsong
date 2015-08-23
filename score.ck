@@ -39,7 +39,7 @@ level.setBassLevel(1.3);
 16 * tempo.quarterNote => now;
 
 Machine.add(me.dir()+"/lead.ck") => int leadID;
-level.setLeadLevel(1.5);
+level.setLeadLevel(1.9);
 32 * tempo.quarterNote => now;
 
 level.fadeDrumsTo(0.0, tempo.SPB * 8);

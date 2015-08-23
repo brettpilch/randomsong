@@ -2,19 +2,22 @@ public class Lead {
     Level level;
     // sound chain
     Pan2 master => dac;
-    SawOsc bass => ADSR env => NRev reverb => master;
+    SawOsc bass => ADSR env => Chorus chorus => NRev reverb => master;
     PulseOsc bass2 => env;
     
     // globals
     0.01 => bass.gain;
     0.01 => bass2.gain;
     0.2 => bass2.width;
+    10.0 => chorus.modFreq;
+    0.005 => chorus.modDepth;
+    1.0 => chorus.mix;
     level.leadReverb => reverb.mix;
     level.leadPanning => master.pan;
     1 => int octave;
-    -12 => int interval;
+    12 => int interval;
     56 => int minNote;
-    80 => int maxNote;
+    90 => int maxNote;
     (0.01::second, 0.2::second, 0.5, 0.01::second) => env.set;
     
     fun void updateLevel(Level level) {// uses public Level class to update gain from score.ck
