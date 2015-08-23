@@ -1,10 +1,3 @@
-//-----------------------------------------------------------------------------
-// name: concur-2.ck
-// desc: polyrhythmic concurrency example
-//
-// authors: Ge Wang (ge@ccrma.stanford.edu)
-//    date: spring 2013
-//-----------------------------------------------------------------------------
 BPM tempo;
 Level level;
 tempo.sixteenthNote => dur sixteenthNote;
@@ -13,8 +6,8 @@ tempo.quarterNote => dur quarterNote;
 // sound chain (left)
 //ModalBar modal => NRev reverbL => dac.left;
 SinOsc modal => ADSR env => NRev reverbL => dac.left;
-level.modalGain * level.masterGain => modal.gain;
 env.set(0.02, 0.02, 0.2, 0.02);
+level.masterGain * level.modalGain => modal.gain;
 // set reverb mix
 level.modalReverb => reverbL.mix;
 // modal bar parameters
@@ -24,7 +17,7 @@ level.modalReverb => reverbL.mix;
 // another sound chain (right)
 //ModalBar modal2 => NRev reverbR => dac.right;
 SinOsc modal2 => ADSR env2 => NRev reverbR => dac.right;
-level.modal2Gain * level.masterGain => modal2.gain;
+level.masterGain * level.modal2Gain => modal2.gain;
 env2.set(0.02, 0.02, 0.2, 0.02);
 // set reverb mix
 level.modal2Reverb => reverbR.mix;

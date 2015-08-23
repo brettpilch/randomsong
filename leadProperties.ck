@@ -1,29 +1,26 @@
-public class Bass {
+public class Lead {
     Level level;
     // sound chain
     Pan2 master => dac;
-    SinOsc mod => PulseOsc bass => ADSR env => NRev reverb => Pan2 panning => master;
-    SinOsc bass2 => env;
+    SawOsc bass => ADSR env => NRev reverb => master;
+    PulseOsc bass2 => env;
     
-    // instrument properties
-    0.2 => bass.width;
+    // globals
     0.01 => bass.gain;
-    0.07 => bass2.gain;
-    10 => mod.gain;
-    500 => mod.freq;
-    2 => bass.sync;
-    level.bassReverb => reverb.mix;
-    level.bassPanning => panning.pan;
-    -2 => int octave;
-    0 => int interval;
-    32 => int minNote;
-    56 => int maxNote;
-    (0.01::second, 0.2::second, 0.0, 0.2::second) => env.set; // punchy bass envelope
+    0.01 => bass2.gain;
+    0.2 => bass2.width;
+    level.leadReverb => reverb.mix;
+    level.leadPanning => master.pan;
+    1 => int octave;
+    -12 => int interval;
+    56 => int minNote;
+    80 => int maxNote;
+    (0.01::second, 0.2::second, 0.5, 0.01::second) => env.set;
     
     fun void updateLevel(Level level) {// uses public Level class to update gain from score.ck
         while( true )
         {
-            level.masterGain * level.bassGain => master.gain;
+            level.masterGain * level.leadGain => master.gain;
             0.02::second => now;
         }
     }

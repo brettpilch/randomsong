@@ -6,6 +6,9 @@ Level level;
 Key key;
 Bass bass;
 
+[0, 2, 3] @=> int roots[];
+2 => int longestNote;
+
 //3 => int stepSize; //original
 2 => int stepSize;
 [43,45,47,48,50,52,53,55,57,59,60] @=> int notes[]; //major
@@ -19,8 +22,6 @@ spork ~ bass.updateLevel(level);
 //Math.random2(0,notes.cap()-1) => int i;
 Math.random2(0,key.scale.cap()-1) => int i;
 0 => int j;
-//[3, 6, 7, 10] @=> int roots[];
-[0, 2, 3] @=> int roots[];
 while( true )
 {
     // play the selected note in the scale
@@ -34,7 +35,7 @@ while( true )
     
     // random duration between 1/16- and 1/4-note
     16 - (j % 16) => int leave;
-    Math.min(2, leave) $ int => int maxDur; // $ casts float to int
+    Math.min(longestNote, leave) $ int => int maxDur; // $ casts float to int
     Math.random2(1, maxDur) => int duration;
     j + duration => j;
     

@@ -1,10 +1,11 @@
 // sound chain
 BPM tempo;
 Level level;
-Pan2 master => dac;
+Pan2 master => NRev reverb => dac;
 SndBuf kick, snare, hat;
 // master fader level:
 7.0 => float masterC;
+level.drumsReverb => reverb.mix;
 
 class Sound
 {
@@ -85,8 +86,8 @@ class Sound
 ["kick2"] @=> string kickFiles[];
 ["maracas", "hihat", "maracas", "clave", "rimshot"] @=> string hatFiles[];
 //["clave"] @=> string hatFiles[];
-["snare1", "snare2", "snare1", "snare1"] @=> string snareFiles[];
-//["snare1"] @=> string snareFiles[];
+//["snare1", "snare2", "snare1", "snare1"] @=> string snareFiles[];
+["snare1"] @=> string snareFiles[];
 
 // fader levels
 1.2 => float kickC;
@@ -109,8 +110,8 @@ tempo.quarterNote => dur quarter;
 
 // Upper and lower bounds for randomly selected gain on each beat:
 [[.12,.24],[.02,.06],[.06,.14],[.02,.06]] @=> float hatGains[][];
-[[.4,.8],[.1,.3],[.3,.7],[.1,.5]] @=> float kickGains[][];
-[[.2,.4],[.05,.15],[.2,.4],[.05,.15],[.4,.5],[.05,.15],[.1,.3],[.05,.15]] @=> float snareGains[][];
+[[.4,.6],[.1,.2],[.3,.5],[.1,.3]] @=> float kickGains[][];
+[[.2,.3],[.05,.15],[.2,.3],[.05,.15],[.25,.35],[.05,.15],[.1,.2],[.05,.15]] @=> float snareGains[][];
 
 Sound Kick, Snare, Hat;
 

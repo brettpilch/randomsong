@@ -9,15 +9,17 @@ Pan2 master => dac;
 VoicForm voices[4];
 Pan2 voicesp[4];
 ADSR voiceEnv[4];
+NRev reverb[4];
 
 for( 0 => int i; i < voices.cap(); i++ )
 {
     // complete the sound chain for all voices
-    voices[i] => voiceEnv[i] => voicesp[i] => master;
+    voices[i] => voiceEnv[i] => reverb[i] => voicesp[i] => master;
     // set the gain, envelope, and panning of all voices.
     (0.95 / voices.cap()) => voices[i].gain;
     ( 2::second, 2::second, 0.1, 0.1::second ) => voiceEnv[i].set;
     -0.99 + 0.66*i => voicesp[i].pan; // each panned differently
+    level.chordsReverb => reverb[i].mix;
     11 => voices[i].phonemeNum;
 }
 

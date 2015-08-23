@@ -3,9 +3,8 @@
 // levels
 
 // a public class used to automate track levels in score.ck
-
 public class Level
-{// initialize all levels to 1.0
+{// initialize all levels to 0.0
     static float masterGain;
     static float modalGain;
     static float modal2Gain;
@@ -17,8 +16,15 @@ public class Level
     static float leadGain;
     static float chordsGain;
     
+    static float bassPanning;
+    static float leadPanning;
+    
     static float modalReverb;
     static float modal2Reverb;
+    static float drumsReverb;
+    static float bassReverb;
+    static float chordsReverb;
+    static float leadReverb;
     
     fun void fadeMasterTo(float num, float secs) {
         (num - this.masterGain) / (1000 * secs) => float increment; 
@@ -37,6 +43,8 @@ public class Level
         }
         num => this.drumsGain;
     }
+    
+    //////// LEVELS ///////////////////////////////////////////////////////////////////////////////////
     
     fun void setDrumsLevel(float num) {
         num => this.drumsGain;
@@ -66,6 +74,18 @@ public class Level
         num => this.chordsGain;
     }
     
+    ////// PANNING /////////////////////////////////////////////////////////////////////////
+    
+    fun void setBassPanning(float num) {
+        num => this.bassPanning;
+    }
+    
+    fun void setLeadPanning(float num) {
+        num => this.leadPanning;
+    }
+    
+    ////// REVERB ///////////////////////////////////////////////////////////////////////////
+    
     fun void setModalReverb(float num) {
         num => this.modalReverb;
     }
@@ -74,5 +94,20 @@ public class Level
         num => this.modal2Reverb;
     }
     
+    fun void setDrumsReverb(float num) {
+        num => this.drumsReverb;
+    }
+    
+    fun void setBassReverb(float num) {
+        num => this.bassReverb;
+    }
+    
+    fun void setChordsReverb(float num) {
+        num => this.chordsReverb;
+    }
+    
+    fun void setLeadReverb(float num) {
+        num => this.leadReverb;
+    }
 }
     

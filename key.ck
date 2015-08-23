@@ -1,7 +1,6 @@
 public class Key
 {
     [57,59,60,62,64,65,67] @=> static int midiNoteNums[];
-    
     static int root;
     [0,2,4,5,7,9,11] @=> static int scale[];
     
@@ -26,7 +25,3 @@ public class Key
         }
     }
 }
-
-Key key;
-key.setKey("A");
-<<<key.root, key.scale[2]>>>;
