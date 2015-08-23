@@ -13,7 +13,7 @@ level.setLeadPanning(0.3);
 
 level.setModalReverb(0.2);
 level.setModal2Reverb(0.2);
-level.setDrumsReverb(0.013);
+level.setDrumsReverb(0.015);
 level.setBassReverb(0.02);
 level.setChordsReverb(0.06);
 level.setLeadReverb(0.1);

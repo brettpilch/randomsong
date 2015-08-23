@@ -8,7 +8,7 @@ public class Lead {
     // globals
     0.01 => bass.gain;
     0.01 => bass2.gain;
-    0.2 => bass2.width;
+    0.1 => bass2.width;
     10.0 => chorus.modFreq;
     0.005 => chorus.modDepth;
     1.0 => chorus.mix;

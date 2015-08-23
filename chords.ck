@@ -47,8 +47,13 @@ fun void setVoiceFreqs(int chord[], int root)
                 1 +=> thisOctave;
             }
         }
+        0 => int thisTonality;
+        (root + chord[i]) % key.scale.cap() => int index;
+        if ((index == 2 || index == 5) && key.tonality == -1) {
+            -1 => thisTonality;
+        }
         key.root + key.scale[(root + chord[i]) % key.scale.cap()] => int thisNote;
-        12 * octave + 12 * thisOctave +=> thisNote;
+        12 * octave + 12 * thisOctave + thisTonality +=> thisNote;
         Std.mtof(thisNote) => voices[i].freq;
         1 => voiceEnv[i].keyOn;
     }

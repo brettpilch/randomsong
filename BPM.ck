@@ -14,7 +14,7 @@ public class BPM
         SPB :: second => quarterNote;
         quarterNote*0.5 => eighthNote;
         eighthNote*0.5 => sixteenthNote;
-        quarterNote*0.5 => thirtysecondNote;
+        sixteenthNote*0.5 => thirtysecondNote;
         
         // store data in array
         [quarterNote, eighthNote, sixteenthNote, thirtysecondNote] @=> myDuration;

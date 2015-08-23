@@ -10,10 +10,6 @@ Lead lead;
 4 => int longestNote;
 
 2 => int stepSize;
-[43,45,47,48,50,52,53,55,57,59,60] @=> int notes[]; //major
-//[43,44,47,48,50,51,53,55,56,59,60] @=> int notes[]; //minor
-//[43,46,48,51,53,54,55,58,60] @=> int notes[]; //blues
-//[43,46,47,48,51,52,54,55,58,59,60] @=> int notes[]; //harmonic major
 
 spork ~ lead.updateLevel(level);
 
@@ -26,9 +22,13 @@ while( true )
     if (j % 16 == 0) {
         roots[Math.random2(0, roots.cap() - 1)] => i;
     }
-    key.root + key.scale[i] + lead.octave * 12 => int thisNote;
+    0 => int thisTonality;
+    if ((i == 2 || i == 5) && key.tonality == -1) {
+        -1 => thisTonality;
+    }
+    key.root + key.scale[i] + lead.octave * 12  + thisTonality => int thisNote;
     lead.correctOctave(thisNote);
-    key.root + key.scale[i] + lead.octave * 12 => thisNote;
+    key.root + key.scale[i] + lead.octave * 12 + thisTonality => thisNote;
     lead.setNote(thisNote);
     
     8 - (j % 8) => int leave;

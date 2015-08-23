@@ -6,7 +6,7 @@ public class Bass {
     SinOsc bass2 => env;
     
     // instrument properties
-    0.2 => bass.width;
+    0.3 => bass.width;
     0.01 => bass.gain;
     0.07 => bass2.gain;
     10 => mod.gain;
@@ -15,10 +15,10 @@ public class Bass {
     level.bassReverb => reverb.mix;
     level.bassPanning => panning.pan;
     -2 => int octave;
-    0 => int interval;
-    32 => int minNote;
-    56 => int maxNote;
-    (0.01::second, 0.2::second, 0.0, 0.2::second) => env.set; // punchy bass envelope
+    12 => int interval;
+    26 => int minNote;
+    50 => int maxNote;
+    (0.01::second, 0.3::second, 0.1, 0.01::second) => env.set; // punchy bass envelope
     
     fun void updateLevel(Level level) {// uses public Level class to update gain from score.ck
         while( true )

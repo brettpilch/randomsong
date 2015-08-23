@@ -28,9 +28,13 @@ while( true )
     if (j % 16 == 0) {
         roots[Math.random2(0, roots.cap() - 1)] => i;
     }
-    key.root + key.scale[i] + bass.octave * 12 => int thisNote;
+    0 => int thisTonality;
+    if ((i == 2 || i == 5) && key.tonality == -1) {
+        -1 => thisTonality;
+    }
+    key.root + key.scale[i] + bass.octave * 12  + thisTonality => int thisNote;
     bass.correctOctave(thisNote);
-    key.root + key.scale[i] + bass.octave * 12 => thisNote;
+    key.root + key.scale[i] + bass.octave * 12 + thisTonality => thisNote;
     bass.setNote(thisNote);
     
     // random duration between 1/16- and 1/4-note
@@ -39,7 +43,7 @@ while( true )
     Math.random2(1, maxDur) => int duration;
     j + duration => j;
     
-    bass.playNote(tempo.sixteenthNote * duration);
+    bass.playNote(tempo.eighthNote * duration);
     
     // randomly step 0 to 3 positions up or down the scale.
     i + Math.random2(-stepSize,stepSize) => i;

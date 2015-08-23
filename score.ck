@@ -31,7 +31,7 @@ Machine.add(me.dir()+"/concur-3.ck") => int concurID;
 level.fadeMasterTo(8.0, tempo.SPB * 8);
 
 Machine.add(me.dir()+"/randomDrums.ck") => int drumsID;
-level.setDrumsLevel(0.23);
+level.setDrumsLevel(0.2);
 16 * tempo.quarterNote => now;
 
 Machine.add(me.dir()+"/bass.ck") => int bassID;
