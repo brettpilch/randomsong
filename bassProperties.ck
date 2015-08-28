@@ -14,10 +14,10 @@ public class Bass {
     2 => bass.sync;
     level.bassReverb => reverb.mix;
     level.bassPanning => panning.pan;
-    -2 => int octave;
-    12 => int interval;
-    26 => int minNote;
-    50 => int maxNote;
+    -1 => int octave;
+    0 => int interval;
+    36 => int minNote;
+    60 => int maxNote;
     (0.01::second, 0.3::second, 0.1, 0.01::second) => env.set; // punchy bass envelope
     
     fun void updateLevel(Level level) {// uses public Level class to update gain from score.ck

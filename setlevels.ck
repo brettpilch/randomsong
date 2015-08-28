@@ -8,8 +8,8 @@ level.setModal2Level(0.05);
 level.setLeadLevel(0.0);
 level.setChordsLevel(0.6);
 
-level.setBassPanning(-0.3);
-level.setLeadPanning(0.3);
+level.setBassPanning(0.3);
+level.setLeadPanning(-0.3);
 
 level.setModalReverb(0.2);
 level.setModal2Reverb(0.2);

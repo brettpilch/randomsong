@@ -4,7 +4,9 @@
 
 //add classes to control tempo, levels, and key:
 BPM tempo;
-tempo.tempo(Math.random2f(80, 120));
+tempo.setTempo(Math.random2f(80, 120));
+[1,2,3,4,6] @=> int meterChoices[];
+tempo.setMeter(meterChoices[Math.random2(0, meterChoices.cap() - 1)]);
 Level level;
 Key key;
 ["A", "B", "C", "D", "E", "F", "G"] @=> string keys[];
@@ -19,8 +21,7 @@ getRandom(keys) => string thisKey;
 getRandom(accidentals) => string thisAccidental;
 getRandom(tonalities) => string thisTonality;
 key.setKey(thisKey + thisAccidental + thisTonality);
-<<<thisKey + thisAccidental + thisTonality>>>;
-<<<key.root, key.scale[2]>>>;
+<<<"key:", thisKey + thisAccidental + thisTonality, "tempo:", tempo.tempo, "meter", tempo.meter, " / 4">>>;
 
 Machine.add(me.dir()+"/setlevels.ck");
 
@@ -28,23 +29,21 @@ spork ~ printLevel();
 
 Machine.add(me.dir()+"/chords.ck") => int chordsID;
 Machine.add(me.dir()+"/concur-3.ck") => int concurID;
-level.fadeMasterTo(8.0, tempo.SPB * 8);
+level.fadeMasterTo(8.0, tempo.SPB * tempo.meter * 2);
 
 Machine.add(me.dir()+"/randomDrums.ck") => int drumsID;
 level.setDrumsLevel(0.2);
-16 * tempo.quarterNote => now;
+tempo.advance(4);
 
 Machine.add(me.dir()+"/bass.ck") => int bassID;
 level.setBassLevel(1.3);
-16 * tempo.quarterNote => now;
+tempo.advance(4);
 
 Machine.add(me.dir()+"/lead.ck") => int leadID;
-level.setLeadLevel(1.9);
-32 * tempo.quarterNote => now;
+level.setLeadLevel(1.75);
+tempo.advance(12);
 
-level.fadeDrumsTo(0.0, tempo.SPB * 8);
-
-level.fadeMasterTo(0.0, tempo.SPB * 16);
+level.fadeMasterTo(0.0, tempo.SPB * tempo.meter * 4);
 
 Machine.remove(drumsID);
 Machine.remove(concurID);
@@ -57,7 +56,7 @@ fun void printLevel()
     0 => int v;
     while( true )
     {
-        if (v % 10 == 0) {
+        if (v % (tempo.meter * 2) == 0) {
             <<<" MASTER ", " MODAL  ", " CHORDS ", " DRUMS  ", "  BASS  ", "  LEAD  ">>>;
         }
         <<<level.masterGain, level.modalGain, level.chordsGain,

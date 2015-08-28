@@ -8,6 +8,7 @@ Bass bass;
 
 [0, 2, 3] @=> int roots[];
 2 => int longestNote;
+tempo.meter * 4 => int sixteenthsPerMeasure;
 
 //3 => int stepSize; //original
 2 => int stepSize;
@@ -25,7 +26,7 @@ Math.random2(0,key.scale.cap()-1) => int i;
 while( true )
 {
     // play the selected note in the scale
-    if (j % 16 == 0) {
+    if (j % sixteenthsPerMeasure == 0) {
         roots[Math.random2(0, roots.cap() - 1)] => i;
     }
     0 => int thisTonality;
@@ -38,7 +39,7 @@ while( true )
     bass.setNote(thisNote);
     
     // random duration between 1/16- and 1/4-note
-    16 - (j % 16) => int leave;
+    (sixteenthsPerMeasure / 2) - (j % (sixteenthsPerMeasure / 2)) => int leave;
     Math.min(longestNote, leave) $ int => int maxDur; // $ casts float to int
     Math.random2(1, maxDur) => int duration;
     j + duration => j;

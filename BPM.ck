@@ -6,10 +6,12 @@ public class BPM
     dur myDuration[4];
     static float SPB;
     static dur quarterNote, eighthNote, sixteenthNote, thirtysecondNote;
+    static int meter;
+    static float tempo;
     
-    fun void tempo(float beat)  {
+    fun void setTempo(float beat)  {
         // beat is BPM, example 120 beats per minute
-        
+        beat => this.tempo;
         60.0/(beat) => SPB; // seconds per beat
         SPB :: second => quarterNote;
         quarterNote*0.5 => eighthNote;
@@ -18,6 +20,14 @@ public class BPM
         
         // store data in array
         [quarterNote, eighthNote, sixteenthNote, thirtysecondNote] @=> myDuration;
+    }
+    
+    fun void setMeter(int beatsPerMeasure) {
+        beatsPerMeasure => this.meter;
+    }
+    
+    fun void advance(int measures) {
+        quarterNote * meter * measures => now;
     }
 }
 

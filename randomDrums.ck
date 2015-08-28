@@ -80,7 +80,16 @@ class Sound
             duration => now;
         }
     }
-} 
+}
+
+fun void updateLevel()
+{// uses public Level class to update gain from score.ck
+    while( true )
+    {
+        level.masterGain * level.drumsGain => master.gain;
+        0.01::second => now;
+    }
+}
 
 // sound file lists:
 ["kick2"] @=> string kickFiles[];
@@ -92,7 +101,7 @@ class Sound
 // fader levels
 1.0 => float kickC;
 1.1 => float hatC;
-0.9 => float snareC;
+0.8 => float snareC;
 
 // globals
 tempo.quarterNote => dur quarter;
@@ -110,27 +119,32 @@ tempo.quarterNote => dur quarter;
 
 // Upper and lower bounds for randomly selected gain on each beat:
 [[.12,.24],[.02,.06],[.06,.14],[.02,.06]] @=> float hatGains[][];
-[[.4,.6],[.1,.2],[.3,.5],[.1,.3]] @=> float kickGains[][];
+[[.4,.6],[.1,.2],[.3,.5],[.1,.3],[.4,.6],[.1,.2],[.3,.5],[.1,.3]] @=> float kickGains[][];
 [[.2,.3],[.05,.15],[.2,.3],[.05,.15],[.25,.35],[.05,.15],[.1,.2],[.05,.15]] @=> float snareGains[][];
+
+if (tempo.meter == 3) {
+    [.25,.05,.75,.05,.75,.05] @=> hat0;
+    [.99,.15,.21,.21,.01,.18] @=> kick0;
+    [.01,.38,.69,.15,.99,.15] @=> snare0;
+    
+    [[.06,.14],[.02,.06],[.12,.24],[.02,.06],[.12,.24],[.02,.06]] @=> hatGains;
+    [[.4,.6],[.1,.2],[.3,.5],[.1,.3],[.3,.5],[.1,.3]] @=> kickGains;
+    [[.2,.3],[.05,.15],[.25,.35],[.05,.15],[.25,.35],[.05,.15]] @=> snareGains;
+} else if (tempo.meter == 6) {
+    [.25,.05,.75,.05,.75,.05,.25,.05,.75,.05,.75,.05] @=> hat0;
+    [.99,.15,.39,.21,.33,.21,.01,.18,.39,.21,.39,.3] @=> kick0;
+    [.01,.38,.04,.15,.06,.15,.99,.15,.03,.15,.03,.37] @=> snare0;
+    
+    [[.06,.14],[.02,.06],[.12,.24],[.02,.06],[.12,.24],[.02,.06]] @=> hatGains;
+    [[.4,.6],[.1,.2],[.3,.5],[.1,.3],[.3,.5],[.1,.3]] @=> kickGains;
+    [[.25,.35],[.05,.15],[.2,.3],[.05,.15],[.2,.3],[.05,.15]] @=> snareGains;
+}
 
 Sound Kick, Snare, Hat;
 
 Kick.construct(kick, kickFiles, kickC, kick0, kickGains, kickp);
 Snare.construct(snare, snareFiles, snareC, snare0, snareGains, snarep);
 Hat.construct(hat, hatFiles, hatC, hat0, hatGains, hatp);
-
-fun void dynamics()
-{// automate the master gain
-    // initial master gain value:
-    0.5 => master.gain;
-    
-    // increase master gain by 0.01 per second:
-    while( master.gain() < 1.0 )
-    {
-        master.gain() + 0.01 => master.gain;
-        1::second => now;
-    }
-}
 
 // spork all child drum tracks to play concurrently
 spork ~ updateLevel();
@@ -139,35 +153,7 @@ spork ~ Hat.oscillate_rate(9::ms, 0.2, 0.0);
 spork ~ Kick.play(quarter/4);
 spork ~ Snare.play(quarter/4);
 spork ~ Hat.play(quarter/4);
-//spork ~ dynamics();
 
-// play for 2 measures:
-16::quarter => now;
-
-6 => int lastShred;
-// randomly change the hihat between regular and double-time:
-while( true )
-{
-    Math.random2(0,1) => int choice;
-    dur newdur;
-    if( choice == 1 )
-    {
-        quarter/8 => newdur;
-    } else
-    {
-        quarter/4 => newdur;
-    }
-    //Machine.remove(lastShred);
-    //spork ~ Hat.play(newdur);
-    //lastShred ++;
-    8::quarter => now;
-}
-
-fun void updateLevel()
-{// uses public Level class to update gain from score.ck
-    while( true )
-    {
-        level.masterGain * level.drumsGain => master.gain;
-        0.01::second => now;
-    }
+while (true) {
+    1::second => now;
 }
