@@ -5,8 +5,15 @@
 //add classes to control tempo, levels, and key:
 BPM tempo;
 tempo.setTempo(Math.random2f(80, 120));
-[1,2,3,4,6] @=> int meterChoices[];
+[4] @=> int meterChoices[];
 tempo.setMeter(meterChoices[Math.random2(0, meterChoices.cap() - 1)]);
+1 => int sectionAdjust;
+if (tempo.meter < 3) {
+    2 => sectionAdjust;
+}
+if (tempo.meter < 2) {
+    4 => sectionAdjust;
+}
 Level level;
 Key key;
 ["A", "B", "C", "D", "E", "F", "G"] @=> string keys[];
@@ -29,19 +36,19 @@ spork ~ printLevel();
 
 Machine.add(me.dir()+"/chords.ck") => int chordsID;
 Machine.add(me.dir()+"/concur-3.ck") => int concurID;
-level.fadeMasterTo(8.0, tempo.SPB * tempo.meter * 2);
+level.fadeMasterTo(8.0, tempo.SPB * tempo.meter * sectionAdjust * 2);
 
 Machine.add(me.dir()+"/randomDrums.ck") => int drumsID;
 level.setDrumsLevel(0.2);
-tempo.advance(4);
+tempo.advance(4 * sectionAdjust);
 
 Machine.add(me.dir()+"/bass.ck") => int bassID;
-level.setBassLevel(1.3);
-tempo.advance(4);
+level.setBassLevel(1.2);
+tempo.advance(4 * sectionAdjust);
 
 Machine.add(me.dir()+"/lead.ck") => int leadID;
 level.setLeadLevel(1.75);
-tempo.advance(12);
+tempo.advance(12 * sectionAdjust);
 
 level.fadeMasterTo(0.0, tempo.SPB * tempo.meter * 4);
 
