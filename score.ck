@@ -18,7 +18,7 @@ Level level;
 Key key;
 ["A", "B", "C", "D", "E", "F", "G"] @=> string keys[];
 ["b", "#", ""] @=> string accidentals[];
-["m"] @=> string tonalities[];
+["m", ""] @=> string tonalities[];
 
 fun string getRandom(string array[]) {
     Math.random2(0, array.cap() - 1) => int choice;

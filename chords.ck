@@ -25,6 +25,12 @@ for( 0 => int i; i < voices.cap(); i++ )
     11 => voices[i].phonemeNum;
 }
 
+// globals
+[43,45,47,48,50,52,53,55,57,59,60,62,64,65,67] @=> int notes[]; //major
+//[43,44,47,48,50,51,53,55,56,59,60] @=> int notes[]; //minor
+//[43,46,48,51,53,54,55,58,60] @=> int notes[]; //blues
+//[43,46,47,48,51,52,54,55,58,59,60,63,64,66,67] @=> int notes[]; //harmonic major
+
 // 2D array is a list of different chord types.
 // each chord is a list of the intervals in that chord.
 [ [0,2,4,5], [0,2,4,6], [0,2,4,7], [0,2,4,8] ] @=> int chords[][];
@@ -41,8 +47,13 @@ fun void setVoiceFreqs(int chord[], int root)
                 1 +=> thisOctave;
             }
         }
+        0 => int thisTonality;
+        (root + chord[i]) % key.scale.cap() => int index;
+        if ((index == 2 || index == 5) && key.tonality == -1) {
+            -1 => thisTonality;
+        }
         key.root + key.scale[(root + chord[i]) % key.scale.cap()] => int thisNote;
-        12 * octave + 12 * thisOctave +=> thisNote;
+        12 * octave + 12 * thisOctave + thisTonality +=> thisNote;
         Std.mtof(thisNote) => voices[i].freq;
         1 => voiceEnv[i].keyOn;
     }

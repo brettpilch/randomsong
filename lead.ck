@@ -17,16 +17,19 @@ spork ~ lead.updateLevel(level);
 // start at a random place in the scale
 Math.random2(0,key.scale.cap()-1) => int i;
 0 => int j;
-<<<key.scale[2]>>>;
 while( true )
 {
     // play the selected note in the scale
     if (j % sixteenthsPerMeasure == 0) {
         roots[Math.random2(0, roots.cap() - 1)] => i;
     }
-    key.root + key.scale[i] + lead.octave * 12 => int thisNote;
+    0 => int thisTonality;
+    if ((i == 2 || i == 5) && key.tonality == -1) {
+        -1 => thisTonality;
+    }
+    key.root + key.scale[i] + lead.octave * 12  + thisTonality => int thisNote;
     lead.correctOctave(thisNote);
-    key.root + key.scale[i] + lead.octave * 12 => thisNote;
+    key.root + key.scale[i] + lead.octave * 12 + thisTonality => thisNote;
     lead.setNote(thisNote);
     
     (sixteenthsPerMeasure / 2) - (j % (sixteenthsPerMeasure / 2)) => int leave;
