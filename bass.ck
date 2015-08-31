@@ -21,7 +21,6 @@ Math.random2(0,key.scale.cap()-1) => int i;
 <<<key.scale[2]>>>;
 while( true )
 {
-    // play the selected note in the scale
     if (j % sixteenthsPerMeasure == 0) {
         roots[Math.random2(0, roots.cap() - 1)] => i;
     }
