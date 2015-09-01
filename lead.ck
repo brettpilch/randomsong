@@ -10,7 +10,7 @@ Lead lead;
 tempo.meter * 4 => int sixteenthsPerMeasure;
 
 2 => int stepSize;
-[1.0,0.0,1.0,1.0] @=> float rhythm[];
+[0.99,0.2,0.5,0.3,0.7,0.2,0.4,0.6] @=> float rhythm[];
 
 spork ~ lead.updateLevel(level);
 

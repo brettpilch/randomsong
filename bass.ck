@@ -10,7 +10,7 @@ Bass bass;
 tempo.meter * 4 => int sixteenthsPerMeasure;
 
 2 => int stepSize;
-[1.0,0.0,1.0,1.0] @=> float rhythm[];
+[0.9,0.1,0.2,0.1,0.8,0.1,0.8,0.1,0.5,0.1,0.8,0.1,0.3,0.1,0.8,0.1] @=> float rhythm[];
 
 spork ~ bass.updateLevel(level);
 
@@ -45,9 +45,9 @@ while( true )
         bass.correctOctave(thisNote);
         key.root + key.scale[i] + bass.octave * 12 + thisTonality => thisNote;
         bass.setNote(thisNote);
-        bass.playNote(tempo.eighthNote);
+        bass.playNote(tempo.sixteenthNote);
     } else {
-        bass.holdNote(tempo.eighthNote);
+        bass.holdNote(tempo.sixteenthNote);
     }
     1 +=> j;
 }
