@@ -46,8 +46,12 @@ public class Lead {
     }
     
     fun void playNote(dur duration) {
+        1 => env.keyOff;
         1 => env.keyOn;
         duration => now;
-        1 => env.keyOff;
+    }
+    
+    fun void holdNote(dur duration) {
+        duration => now;
     }
 }

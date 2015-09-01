@@ -7,7 +7,6 @@ Key key;
 Bass bass;
 
 [0, 2, 3] @=> int roots[];
-2 => int longestNote;
 tempo.meter * 4 => int sixteenthsPerMeasure;
 
 2 => int stepSize;
