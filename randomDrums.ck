@@ -56,7 +56,7 @@ class Sound
             if( Math.random2f(0,1) < pattern[i % pattern.cap()] )
             {
                 Math.random2(0,soundfiles.cap()-1) => int choice;
-                set_file(me.dir(-1) + "/audio/808_" + soundfiles[choice] + ".wav");
+                set_file(me.dir() + "/audio/808_" + soundfiles[choice] + ".wav");
                 set_pos(0);
                 
                 // set volume randomly between given lower and upper bounds.
