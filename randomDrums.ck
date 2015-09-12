@@ -65,7 +65,11 @@ class Sound
                 set_gain(Math.random2f(low,high) * thislevel * masterC);
                 //set_rate(Math.random2f(0.8,1.3));
             }
-            duration => now;
+            if (i % 2 == 0) {
+                duration + tempo.shuffle * duration * 0.5 => now;
+            } else {
+                duration - tempo.shuffle * duration * 0.5 => now;
+            }
             1 + i => i;
         }
     }

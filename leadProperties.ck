@@ -45,13 +45,25 @@ public class Lead {
         Std.mtof(note + interval) => bass2.freq;
     }
     
-    fun void playNote(dur duration) {
+    fun void playNote(dur duration, int beat, float shuffle) {
         1 => env.keyOff;
         1 => env.keyOn;
-        duration => now;
+        dur adjustment;
+        if (beat % 2 == 0) {
+            shuffle * duration * 0.5 => adjustment;
+        } else {
+            -shuffle * duration * 0.5 => adjustment;
+        }
+        duration + adjustment => now;
     }
     
-    fun void holdNote(dur duration) {
-        duration => now;
+    fun void holdNote(dur duration, int beat, float shuffle) {
+        dur adjustment;
+        if (beat % 2 == 0) {
+            shuffle * duration * 0.5 => adjustment;
+        } else {
+            -shuffle * duration * 0.5 => adjustment;
+        }
+        duration + adjustment => now;
     }
 }

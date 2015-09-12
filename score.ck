@@ -5,8 +5,12 @@
 //add classes to control tempo, levels, and key:
 BPM tempo;
 tempo.setTempo(Math.random2f(80, 120));
+
 [4] @=> int meterChoices[];
 tempo.setMeter(meterChoices[Math.random2(0, meterChoices.cap() - 1)]);
+
+[0.0, 0.5] @=> float shuffleChoices[];
+tempo.setShuffle(shuffleChoices[Math.random2(0, shuffleChoices.cap() - 1)]);
 1 => int sectionAdjust;
 if (tempo.meter < 3) {
     2 => sectionAdjust;
@@ -28,7 +32,8 @@ getRandom(keys) => string thisKey;
 getRandom(accidentals) => string thisAccidental;
 getRandom(tonalities) => string thisTonality;
 key.setKey(thisKey + thisAccidental + thisTonality);
-<<<"key:", thisKey + thisAccidental + thisTonality, "tempo:", tempo.tempo, "meter", tempo.meter, " / 4">>>;
+<<<"key:", thisKey + thisAccidental + thisTonality, "tempo:", tempo.tempo,
+   "meter:", tempo.meter, " / 4", "shuffle:", tempo.shuffle>>>;
 
 Machine.add(me.dir()+"/setlevels.ck");
 

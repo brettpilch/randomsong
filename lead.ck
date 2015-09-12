@@ -43,9 +43,9 @@ while( true ) {
         lead.correctOctave(thisNote);
         key.root + key.scale[i] + lead.octave * 12 + thisTonality => thisNote;
         lead.setNote(thisNote);
-        lead.playNote(tempo.sixteenthNote);
+        lead.playNote(tempo.sixteenthNote, j, tempo.shuffle);
     } else {
-        lead.holdNote(tempo.sixteenthNote);
+        lead.holdNote(tempo.sixteenthNote, j, tempo.shuffle);
     }
     1 +=> j;
 }

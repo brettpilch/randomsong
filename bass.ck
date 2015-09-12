@@ -45,9 +45,9 @@ while( true )
         bass.correctOctave(thisNote);
         key.root + key.scale[i] + bass.octave * 12 + thisTonality => thisNote;
         bass.setNote(thisNote);
-        bass.playNote(tempo.sixteenthNote);
+        bass.playNote(tempo.sixteenthNote, j, tempo.shuffle);
     } else {
-        bass.holdNote(tempo.sixteenthNote);
+        bass.holdNote(tempo.sixteenthNote, j, tempo.shuffle);
     }
     1 +=> j;
 }

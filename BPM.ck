@@ -8,6 +8,7 @@ public class BPM
     static dur quarterNote, eighthNote, sixteenthNote, thirtysecondNote;
     static int meter;
     static float tempo;
+    static float shuffle;
     
     fun void setTempo(float beat)  {
         // beat is BPM, example 120 beats per minute
@@ -24,6 +25,10 @@ public class BPM
     
     fun void setMeter(int beatsPerMeasure) {
         beatsPerMeasure => this.meter;
+    }
+    
+    fun void setShuffle(float amount) {
+        amount => this.shuffle;
     }
     
     fun void advance(int measures) {
