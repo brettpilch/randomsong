@@ -48,13 +48,12 @@ class Sound
         some_rate => sound.rate;
     }
     
-    fun void play(dur duration)
+    fun void play()
     {// play Sndbuf in a given pattern using specified duration
         0 => int i;
         while( true )
         {// play drum sound if random2 is less than the value of the current beat in the pattern.
-            if( Math.random2f(0,1) < pattern[i % pattern.cap()] )
-            {
+            if (Math.random2f(0,1) < pattern[i % pattern.cap()]) {
                 Math.random2(0,soundfiles.cap()-1) => int choice;
                 set_file(me.dir() + "/audio/808_" + soundfiles[choice] + ".wav");
                 set_pos(0);
@@ -65,6 +64,7 @@ class Sound
                 set_gain(Math.random2f(low,high) * thislevel * masterC);
                 //set_rate(Math.random2f(0.8,1.3));
             }
+            tempo.quarterNote / 4 => dur duration;
             if (i % 2 == 0) {
                 duration + tempo.shuffle * duration * 0.5 => now;
             } else {
@@ -108,7 +108,6 @@ fun void updateLevel()
 0.8 => float snareC;
 
 // globals
-tempo.quarterNote => dur quarter;
 0.3 => float hatp;
 -0.3 => float snarep;
 0.0 => float kickp;
@@ -154,9 +153,9 @@ Hat.construct(hat, hatFiles, hatC, hat0, hatGains, hatp);
 spork ~ updateLevel();
 spork ~ Snare.oscillate_rate(15::ms, 0.2, 0.2);
 spork ~ Hat.oscillate_rate(9::ms, 0.2, 0.0);
-spork ~ Kick.play(quarter/4);
-spork ~ Snare.play(quarter/4);
-spork ~ Hat.play(quarter/4);
+spork ~ Kick.play();
+spork ~ Snare.play();
+spork ~ Hat.play();
 
 while (true) {
     1::second => now;

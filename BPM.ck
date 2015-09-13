@@ -34,5 +34,14 @@ public class BPM
     fun void advance(int measures) {
         quarterNote * meter * measures => now;
     }
+    
+    fun void fade(float num, float secs) {
+        (num - this.tempo) / (1000 * secs) => float increment;
+        while (Std.fabs(this.tempo - num) > Std.fabs(increment)) {
+            this.setTempo(increment + this.tempo);
+            0.001::second => now;
+        }
+        num => this.tempo;
+    }
 }
 

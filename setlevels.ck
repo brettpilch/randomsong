@@ -3,8 +3,8 @@ Level level;
 level.setMasterLevel(0.0);
 level.setDrumsLevel(0.0);
 level.setBassLevel(0.0);
-level.setModalLevel(0.05);
-level.setModal2Level(0.05);
+level.setModalLevel(0.03);
+level.setModal2Level(0.03);
 level.setLeadLevel(0.0);
 level.setChordsLevel(0.6);
 

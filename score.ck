@@ -1,15 +1,12 @@
 // score.ck
-// on the fly drumming with global BPM conducting
-//add tracks:
-
 //add classes to control tempo, levels, and key:
 BPM tempo;
-tempo.setTempo(Math.random2f(80, 120));
+tempo.setTempo(Math.random2f(80, 100));
 
 [4] @=> int meterChoices[];
 tempo.setMeter(meterChoices[Math.random2(0, meterChoices.cap() - 1)]);
 
-[0.0, 0.5] @=> float shuffleChoices[];
+[0.5] @=> float shuffleChoices[];
 tempo.setShuffle(shuffleChoices[Math.random2(0, shuffleChoices.cap() - 1)]);
 1 => int sectionAdjust;
 if (tempo.meter < 3) {
@@ -53,7 +50,10 @@ tempo.advance(4 * sectionAdjust);
 
 Machine.add(me.dir()+"/lead.ck") => int leadID;
 level.setLeadLevel(1.75);
-tempo.advance(12 * sectionAdjust);
+tempo.advance(4 * sectionAdjust);
+
+tempo.fade(tempo.tempo * 0.9, tempo.SPB * tempo.meter * sectionAdjust * 2);
+tempo.advance(4 * sectionAdjust);
 
 level.fadeMasterTo(0.0, tempo.SPB * tempo.meter * 4);
 
