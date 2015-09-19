@@ -51,8 +51,9 @@ tempo.advance(4 * sectionAdjust);
 
 Machine.add(me.dir()+"/lead.ck") => int leadID;
 level.setLeadLevel(1.75);
-spork ~ tempo.fade(tempo.tempo * 0.9, tempo.SPB * tempo.meter * sectionAdjust * 2);
 tempo.advance(12 * sectionAdjust);
+spork ~ tempo.fade(tempo.tempo * 0.9, tempo.SPB * tempo.meter * sectionAdjust * 2);
+tempo.advance(0 * sectionAdjust);
 
 level.fadeMasterTo(0.0, tempo.SPB * tempo.meter * 4);
 

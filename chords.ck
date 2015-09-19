@@ -4,6 +4,7 @@
 BPM tempo;
 Key key;
 Chords chordProperties;
+Progression progression;
 
 // 2D array is a list of different chord types.
 // each chord is a list of the intervals in that chord.
@@ -36,6 +37,7 @@ fun int[] getNotes(int chord[], int root)
 spork ~ chordProperties.updateLevel();
 
 0 => int j;
+0 => int k;
 while( true )
 {
     if (Math.random2f(0.0, 1.0) < rhythm[j % rhythm.cap()]) {// play a new chord
@@ -44,7 +46,12 @@ while( true )
         Math.random2(0,chords.cap() - 1) => int which;
         chords[which] @=> int chord[];
         // select a random root note
-        Math.random2(0, key.scale.cap() - 1) => int root;
+        int root;
+        if (progression.useProgression) {
+            progression.roots[k % progression.roots.cap()] => root;
+        } else {
+            Math.random2(0, key.scale.cap() - 1) => root;
+        }
         // set voice freqs according to root and chord type.
         getNotes(chord, root) @=> int notes[];
         chordProperties.setNotes(notes);
@@ -53,4 +60,7 @@ while( true )
     // advance time 1 quarter-note
     tempo.quarterNote => now;
     1 +=> j;
+    if (j % 4 == 0) {
+        1 +=> k;
+    }
 }
